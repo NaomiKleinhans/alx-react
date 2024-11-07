@@ -7,17 +7,18 @@ describe('<App />', () => {
 		const logOutMock = jest.fn();
 		const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
 
+		// Shallow render the component with a mock logOut function
 		const wrapper = shallow(<App logOut={logOutMock} />);
 
-		// Simulate keydown event for Control + h
+		// Create and dispatch the keydown event
 		const event = new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' });
 		document.dispatchEvent(event);
 
-		// Verify that logOut and alert are called
+		// Verify that logOut and alert were called as expected
 		expect(logOutMock).toHaveBeenCalled();
 		expect(alertMock).toHaveBeenCalledWith('Logging you out');
 
-		// Cleanup mock
+		// Cleanup alert mock
 		alertMock.mockRestore();
 	});
 });
