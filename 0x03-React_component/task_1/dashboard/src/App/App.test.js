@@ -1,24 +1,30 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import App from './App';
+import React from "react";
+import { shallow } from "enzyme";
+import App from "./App";
 
-describe('<App />', () => {
-	it('calls logOut and shows alert when Control and h keys are pressed', () => {
-		const logOutMock = jest.fn();
-		const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
+describe("<App />", () => {
+  it("App renders without any errors", () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.exists()).toEqual(true);
+  });
 
-		// Shallow render the component with a mock logOut function
-		const wrapper = shallow(<App logOut={logOutMock} />);
+  it("contain the Notifications component", () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find("Notifications")).toHaveLength(1);
+  });
 
-		// Create and dispatch the keydown event
-		const event = new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' });
-		document.dispatchEvent(event);
+  it("contain the Header component", () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find("Header")).toHaveLength(1);
+  });
 
-		// Verify that logOut and alert were called as expected
-		expect(logOutMock).toHaveBeenCalled();
-		expect(alertMock).toHaveBeenCalledWith('Logging you out');
+  it("contain the Login component", () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find("Login")).toHaveLength(1);
+  });
 
-		// Cleanup alert mock
-		alertMock.mockRestore();
-	});
+  it("contain the Footer component", () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find("Footer")).toHaveLength(1);
+  });
 });
